@@ -1,0 +1,613 @@
+#include<stdio.h>
+#include<string.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<windows.h>
+
+enum ConsoleColor {
+	Black = 0,
+	Blue = 1,
+	Green = 2,
+	Cyan = 3,
+	Red = 4,
+	Magenta = 5,
+	Brown = 6,
+	LightGray = 7,
+	DarkGray = 8,
+	LightBlue = 9,
+	LightGreen = 10,
+	LightCyan = 11,
+	LightRed = 12,
+	LightMagenta = 13,
+	Yellow = 14,
+	White = 15
+};
+
+
+struct Person
+{
+	char FirstName[20];
+	char LastName[20];
+	int Age;
+	char phone[20];
+};
+
+int menu();
+int menu1();
+void CopyPerson(Person &from, Person &to);
+void EnterPerson(Person &Obj);
+void PrintPerson(Person &Obj);
+void SearchPersonByFirstname(Person *M, int k, char *FN);
+void SearchPersonByLastname(Person *M, int k, char *LN);
+void SearchPersonByAge(Person *M, int k, int A);
+void ShowAll(Person *M, int k);
+void func();
+void ZapisTxt(Person*, int);
+Person *AddToEnd(Person *M, int &k, Person &Obj);
+Person *SortByAge(Person *M, int k);
+Person *SortByAlphabet(Person *M, int k);
+Person *DeleteAll(Person *M, int &k);
+Person *DeleteAll(Person *M, int &k);
+Person *DeletePerson(Person *M, int &k, Person &Obj);
+
+void ZapisTxt(Person* M, int k)
+{
+	if (k == 0)
+	{
+		puts("Zapisivat nechego!!!");
+		_getch();
+		return;
+	}
+	FILE * f;
+	int q;
+	q = fopen_s(&f, "d:\\persontxt.txt", "w");
+	if (q)
+	{
+		puts("File not opened!!!");
+		_getch();
+		return ;
+	}
+	
+	for (int i = 0; i < k; i++)
+	{
+		fprintf(f,"[Surname]-------------[Name]----------------[Age]-----------------[Phone]\n ");
+		fprintf(f, "%-21s %-21s %-21d %-21s\n", M[i].LastName, M[i].FirstName, M[i].Age, M[i].phone);}
+	    fprintf(f, " ----------------------------------------------------------------------------\n ");
+	puts("FileTxt - zapisan");
+	fclose(f);
+}
+
+void func()
+{
+	Sleep(500);
+	system("cls");
+	for (int i = 1; i <= 5; i++)
+		switch (i)
+		{
+		case 1:
+			puts("\n\n\tERROR!!!");
+			Sleep(500);
+			system("cls");
+			break;
+		case 2:
+			puts("\n\n\n\t\tERROR!!!");
+			Sleep(500);
+			system("cls");
+			break;
+		case 3:
+			puts("\n\n\n\n\t\t\tERROR!!!");
+			Sleep(500);
+			system("cls");
+			break;
+		case 4:
+			puts("\n\n\n\t\t\t\tERROR!!!");
+			Sleep(500);
+			system("cls");
+			break;
+		case 5:
+			puts("\n\n\t\t\t\t\tERROR!!!");
+			Sleep(500);
+			system("cls");
+			break;
+		}
+	system("cls");
+
+
+	printf("___________ooo__________________________________________oooooooooo\n");
+	printf("________ooooooooo_____________________________________oooooooooooooooo\n");
+	printf("______ooooooooooooo_________________________________oooooooooooooooooooo\n");
+	printf("____ooooooooooooooooo_______________oooooooo_____ooooooooooooooooooooooooo\n");
+	printf("___ooooooo_____oooooooo________oooooooooooooooooooooooooo_______oooooooooooo\n");
+	printf("___¦oooo______oo_ooooooooooooooooooooooooooooooooooooooo_____ooooooooooooooo¦\n");
+	printf("__¦ooooooo_ooo_____ooooooooooooooooooooooooooooooooooo¦_____oooooooooooooooooo\n");
+	printf("_oooooooooo_____oo__oooooooooooooooooooooooooooooooooo___o_oooooooooooooooooo¦\n");
+	printf("_¦ooooooooo__ooo______ooooooooooooooooooooooooooooooo¦_____ooooooooooooooooooo\n");
+	printf("_¦ooooooooooo_____oo____ooooooooooooooooooooooooooooo¦_o_o___oooooooooooooooooo\n");
+	printf("_oooooooooo____ooo___o___¦oooooooooooooooooooooooooooo_____ooooooooooooooooooo¦\n");
+	printf("_¦ooooooooooooo___ooo____oooooooooooooooooooooooooooooo_o__ooooooooooooooooooo¦\n");
+	printf("_ooooooooooooooooooo____¦oooooooooooooooooooooooooooooo¦______oooooooooooooooo¦\n");
+	printf("__¦oooooooooooooooo__oo_ooo¦_oooooooooooooooooooooooooooo___ooooo_____o____ooo¦\n");
+	printf("__oooooooooooooooo______¦oo_ooooooooooooooooooooooo_¦_ooo¦___ooo_ooooo______¦o¦\n");
+	printf("___¦ooooooooooooo___oo___ooooooooooooooooooooooooooo_ooooo¦_o__oooo______o___o¦\n");
+	printf("___oooo_o__oooo___ooo______ooooooooooooooooooooooooooooooo¦_______o____o____¦o\n");
+	printf("____oooo__o_o____oo_____o___¦ooooooooooooooooooooooooooooo____o____ooooo___ooo\n");
+	printf("_____oooooo____oo____________oo_ooooooooooooo¦ooooooooooo¦_o______o___ooooooo¦\n");
+	printf("______ooo___o_oo_____o____o__ooooooooooooo_o¦_o_ooooooooo____ooooo_____o___oo¦\n");
+	printf("_______oo___oo_____o____o___¦ooooooooooooooo¦_oo_oooooo¦_______oooooo_____¦oo\n");
+	printf("________ooooo____oo__________¦oooooooooooooo¦¦ooo_oooooo_o_o_______ooooo_ooo\n");
+	printf("_________oo____oo____¦_____oo¦o_oooooooooooo¦¦ooo¦ooooo_____oooo_______oooo\n");
+	printf("__________oo_ooo____o_____¦oo¦oooooooooooo_o¦ooooo_________o__oooooo_oooo\n");
+	printf("___________ooo_____¦¦_____oo¦¦oooooooooooooo_ooooo¦_o__o_o_______ooooooo_o\n");
+	printf("____________oo____o____o_¦oo¦¦o_oooooooooooo_ooooo¦_______ooo__o__oooo_oooo\n");
+	printf("_____________ooo_¦¦______¦oo¦¦oooooooooooooo_¦ooooo__o______ooo__oooo_ooooo¦\n");
+	printf("______________oooo___o___ooo¦¦ooooooooooo_o¦__ooooo¦__ooo____oooooo_ooooooo¦\n");
+	printf("________________ooo_____¦ooo_¦ooooooooooooo¦__¦ooooo____ooo__oooo_ooooooooo¦\n");
+	printf("_________________oooo___¦ooo__o_ooooooooooo¦___ooooo__o___oooooo_¦ooooooooo¦\n");
+	printf("____________________oo___ooo¦_ooooooooooooo_o_____ooo__o____oooo_¦o_ooooooo¦\n");
+	printf("_______________________oooooo_oooooooooo_o¦__o___ooooo_____oooo¦_oo¦ooooooo¦\n");
+	printf("_______________________oooo¦__oooooooooooo¦______¦oooo¦___¦_ooo¦¦o¦¦ooooooo¦\n");
+	printf("______________________¦ooo¦___o__ooooooooo¦___o___ooooo___ooooo¦¦o¦¦oooooooo\n");
+	printf("______________________oooo___¦¦ooooooooooo________¦oooo__oooooo_oo¦ooooooo¦\n");
+	printf("______________________ooo¦___o¦oooooooooo¦____o____oooo__oooooo¦o¦_ooo¦oooo\n");
+	printf("_____________________¦ooo¦__¦o¦oooooooooo¦__o___o__¦oo¦_¦__ooo¦_¦_¦oo¦¦ooo\n");
+	printf("_____________________¦ooo___oo¦¦o_ooooo_o¦_________ooo__¦ooooo¦__¦ooo_oo¦\n");
+	printf("______________________oo¦___oo¦¦ooooooooo________oooo¦_ooooooo__¦oooo¦oo\n");
+	printf("______________________¦o¦__¦oo¦¦ooooooooo____oooooooo_¦__ooooo_¦oooo_¦¦\n");
+	printf("_____________o_________o¦__¦ooo_oooooooo¦______ooo__ooooooooo¦_oooo_¦¦\n");
+	printf("____________ooo_________o__¦ooo_oooooooo¦__o_____oooooooooooo_¦ooo__¦oo¦\n");
+	printf("__________ooo_oooo______¦__¦ooo¦oooooooo________¦ooooooooooo___o__ooooo\n");
+	printf("________ooo__o__ooo________¦ooo¦¦o_ooooo________¦__oooooooo¦__ooooooooo\n");
+	printf("_______oo__ooooo__o________¦ooo¦¦oooooo¦________oooooooooooo__oooooooo¦_______oo\n");
+	printf("______oo_oooooooo¦_o________ooo¦¦oooo_o¦___o____oooooooooo___¦oo_ooooo______ooo\n");
+	printf("____ooo_ooooooooo__oo__oo___oooo_oooooo¦_______¦__ooooooo¦___oo¦¦oooo¦___ooooo\n");
+	printf("__ooo_oooooooooo__o_oooo____¦ooo¦oooooo¦_______¦oooooooooo__¦oo_ooooo__oooo\n");
+	printf("_ooo_oooooooooo____oooooooo_¦ooo¦¦oooooo_______ooooooooo¦___oo_¦oooo¦_oooooooooo\n");
+	printf("oo__oooooooooo_ooo__ooooooo¦¦ooo¦_oooooo¦___o__ooooooooo¦_oo_ooooooooooooooooooo\n");
+	printf("o_ooooooooooo_¦ooooo_ooooooo_oooo_¦oooooo______¦oooooooo¦__ooooo oooooooooooooo\n");
+	printf("_oooooooooo¦__oooooooooooooo¦ooooo__oooooo_ooooooooooooooooooooooooooooooooooo\n");
+	printf("¦oooooooooo__¦oooooooooooooooooooooo_oooooo_ooooooooooooooooooooooooooooooooo_oo\n");
+	printf("¦ooooooooo___oooooooooooooooooooooooooo_oo_ooooooooooooooooooooooooooooooooo_ooo\n");
+	_getch();
+}
+
+void EnterPerson(Person & Obj)
+{
+	puts("Enter familiy: ");
+	fflush(stdin);
+	gets_s(Obj.LastName);
+
+	puts("Enter name: ");
+	fflush(stdin);
+	gets_s(Obj.FirstName);
+
+	puts("Enter phone: ");
+	fflush(stdin);
+	gets_s(Obj.phone);
+
+	puts("Enter age: ");
+	scanf_s("%d", &Obj.Age);
+}
+
+Person *AddToEnd(Person *M, int &k, Person &Obj)
+{
+	system("cls");
+
+	if (k > 0)
+	{
+		Person* M1 = (Person*)malloc((k + 1)*sizeof(Person));
+		//if(!M1){error}
+
+		for (int i = 0; i < k; i++)
+			M1[i] = M[i];
+
+		M1[k++] = Obj;
+
+		free(M);
+
+		return M1;
+	}
+	else
+	{
+		M = (Person*)malloc((k + 1)*sizeof(Person));
+		//if(!M){error}
+
+		M[k++] = Obj;
+		return M;
+		_getch();
+	}
+}
+
+void ShowAll(Person *M, int k)
+{
+	system("cls");
+	if (k > 0)
+	{
+		printf("%-20s%-20s%-20s%-20s\n\n", "[FAMILIA]", "[IMIA]", "[VOZRAST]","[PHONE]");
+		for (int i = 0; i < k; i++)
+			PrintPerson(M[i]);
+	}
+	else
+		puts("\nZapisi otsutstvuiut!!!\n");
+}
+
+void PrintPerson(Person &Obj)
+{
+	printf("%-20s%-20s%-20d%-20s\n", Obj.LastName, Obj.FirstName, Obj.Age, Obj.phone);
+}
+
+Person *SortByAlphabet(Person *M, int k)
+{
+	int q;
+	bool flag = false;
+
+	if (k > 1) 
+	{
+			system("cls");
+			for (int j = 1; j < k; j++)
+				for (int i = 0; i < k - j; i++)
+					if (strcmp(M[i].LastName, M[i + 1].LastName) == 1)
+						CopyPerson(M[i], M[i + 1]);
+					else
+						if (strcmp(M[i].LastName, M[i + 1].LastName) == 0)
+							if (strcmp(M[i].FirstName, M[i + 1].FirstName) == 1)
+								CopyPerson(M[i], M[i + 1]);
+
+			puts("Massiv struktur otsortirovanniy v alfhavitnom poriadke\n");
+			ShowAll(M, k);
+			_getch();		
+	}
+	else
+		puts("\nSortirovat nechego!!!\n");
+
+	return M;
+}
+
+Person *SortByAge(Person *M, int k)
+{
+	int q;
+	bool flag = false;
+	system("cls");
+
+	if (k > 1)
+	{
+
+		for (int j = 1; j < k; j++)
+			for (int i = 0; i < k - j; i++)
+				if (M[i].Age>M[i + 1].Age)
+					CopyPerson(M[i], M[i + 1]);
+		puts("Massiv struktur otsortirovanniy v alfhavitnom poriadke\n");
+		ShowAll(M, k);						
+	}
+
+	else
+		puts("\nSortirovat nechego!!!\n");
+
+	return M;
+}
+
+void CopyPerson(Person& a, Person& b)
+{
+	Person buf;
+	buf = a;
+	a = b;
+	b = buf;
+}
+
+void SearchPersonByFirstname(Person *M, int k, char *FN)
+{
+	system("cls");
+	if (k > 0)
+	{
+		bool flag = false;
+
+		for (int i = 0; i < k; i++)
+			if (strcmp(M[i].FirstName, FN) == 0)
+			{
+				flag = true;
+				break;
+			}
+
+		if (flag == true)
+		{
+			printf("%-20s%-20s%-20s%-20s\n\n", "FAMILIA", "IMIA", "VOZRAST","PHONE");
+			for (int i = 0; i < k; i++)
+				if (strcmp(M[i].FirstName, FN) == 0)
+					PrintPerson(M[i]);
+		}
+		else
+			puts("\nZapisi ne naideni!!!");
+	}
+	else
+		puts("\nMassiv pustoy!!!");
+}
+
+void SearchPersonByLastname(Person *M, int k, char *LN)
+{
+	system("cls");
+	if (k > 0)
+	{
+		bool flag = false;
+
+		for (int i = 0; i < k; i++)
+			if (strcmp(M[i].LastName, LN) == 0)
+			{
+				flag = true;
+				break;
+			}
+
+		if (flag == true)
+		{
+			printf("%-20s%-20s%s%-20sn\n", "FAMILIA", "IMIA", "VOZRAST","PHONE");
+			for (int i = 0; i < k; i++)
+				if (strcmp(M[i].LastName, LN) == 0)
+					PrintPerson(M[i]);
+		}
+		else
+			puts("\nZapisi ne naideni!!!");
+	}
+	else
+		puts("\nMassiv pustoy!!!");
+}
+
+void SearchPersonByAge(Person *M, int k, int A)
+{
+	system("cls");
+
+	if (k > 0)
+	{
+		bool flag = false;
+
+		for (int i = 0; i < k; i++)
+			if (M[i].Age == A)
+			{
+				flag = true;
+				break;
+			}
+
+		if (flag == true)
+		{
+			printf("%-20s%-20s%s%-20s\n\n", "FAMILIA", "IMIA", "VOZRAST","PHONE");
+			for (int i = 0; i < k; i++)
+				if (M[i].Age == A)
+					PrintPerson(M[i]);
+		}
+		else
+			puts("\nZapisi ne naideni!!!");
+	}
+	else
+		puts("\nMassiv pustoy!!!");
+}
+
+Person *DeletePerson(Person *M, int &k, Person &Obj)
+{
+	system("cls");
+	if (k > 0)
+	{
+		Person* M1 = 0;
+		int n1 = 0, kol = 0;
+
+		for (int i = 0; i < k; i++)
+			if (strcmp(M[i].LastName, Obj.LastName) != 0 || strcmp(M[i].FirstName, Obj.FirstName) != 0 || (M[i].Age != Obj.Age) != 0 || strcmp(M[i].phone, Obj.phone) != 0)
+				M1 = AddToEnd(M1, n1, M[i]);
+			else
+				kol++;
+		free(M);
+		k = n1;
+		printf("\nUdaleno %d struktur!!!\n", kol);
+		return M1;
+	}
+	else
+		puts("\nMassiv pustoy!!!");
+	return M;
+}
+
+Person *DeleteAll(Person *M, int &k)
+{
+	system("cls");
+	if (k > 0)
+	{
+		free(M);
+		M = NULL;
+		k = 0;
+		puts("\nZapisi ydaleni!!!");
+	}
+	else
+		puts("\nZapis' net!!!");
+	return M;
+}
+
+int menu(void)
+{
+	int z;
+	char s[100];
+	bool flag = false;
+	do
+	{
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(hConsole, (WORD)((Black << 4) | LightCyan));
+		system("cls");
+		puts("Vvedite:");
+		printf("1 - Dobavlenie zapisi o cheloveke\n");
+		puts("2 - Sortirovka zapisey");
+		puts("3 - Zapis i chtenie dannix");
+		puts("4 - Poisk ludei po imeni");
+		puts("5 - Poisk ludei po familii");
+		puts("6 - Poisk ludei po vozrastu");
+		puts("7 - Udalenie zapisi o cheloveke");
+		puts("8 - Pokazat' vse zapisi");
+		puts("9 - Udalit' vse zapisi");
+		puts("0 - Vyhod");
+
+		printf(">>>");
+		fflush(stdin);
+		gets_s(s);
+		if (s[0] == '0')
+			return 0;
+		z = atoi(s);
+		if (z != 0)
+		{
+			flag = true;
+			
+		}
+		else
+			func();
+	} while (!flag);
+	return z;
+}
+
+int menu1()
+{
+	int z;
+	char s[50];
+	bool flag = false;
+
+	do
+	{
+		system("cls");
+		puts("Vvedite:");
+		puts("1 - Sortirovka zapisey po vozrastu");
+		puts("2 - Sortirovka zapisey v alfovitnom poryadke");
+		puts("0 - Vyhod");
+
+		printf(">>>");
+		fflush(stdin);
+		gets_s(s);
+
+		if (s[0] == '0')
+			return 0;
+
+		z = atoi(s);
+
+		if (z != 0)
+			flag = true;
+		else
+		{
+			system("cls");
+			puts("\nError!!!\n");
+			_getch();
+		}
+	} while (flag == false);
+
+	return z;
+}
+
+int main()
+{
+	int n = 0;
+	Person * Mans = 0;
+	while (int z = menu())
+	{
+		switch (z)
+		{
+		case 1:
+		{
+			system("cls");
+			Person P;
+			EnterPerson(P);
+			Mans = AddToEnd(Mans, n, P);
+			break;
+		}
+		case 2:
+		{
+			while (int z = menu1())
+			{
+				switch (z)
+				{
+				case 1:
+				{
+					Mans = SortByAge(Mans, n);
+					break;
+				}
+				case 2:
+				{
+					Mans = SortByAlphabet(Mans, n);
+					break;
+				}
+				default:
+				{
+					system("cls");
+					puts("\nnevernyi vvod!");
+					break;
+				}
+				}
+				puts("Press any key...");
+				_getch();		
+			}
+			break;
+		}
+		case 3:
+		{
+			system("cls");				
+			ZapisTxt(Mans, n);
+				break;			
+		}
+		case 4:
+		{
+			char buf[80];
+			system("cls");
+			printf("Vvedite imya dlya poiska: ");
+			fflush(stdin);
+			gets_s(buf);
+			printf("\n");
+			SearchPersonByFirstname(Mans, n, buf);
+			break;
+		}
+		case 5:
+		{
+			char buf[80];
+			system("cls");
+			printf("Vvedite familiyu dlya poiska: ");
+			fflush(stdin);
+			gets_s(buf);
+			printf("\n");
+			SearchPersonByLastname(Mans, n, buf);
+			break;
+		}
+		case 6:
+		{
+			int z;
+			system("cls");
+			printf("Vvedite vozrast dlya poiska: ");
+			fflush(stdin);
+			scanf_s("%d", &z);
+			printf("\n");
+			SearchPersonByAge(Mans, n, z);
+			break;
+		}
+		case 7:
+		{
+			system("cls");
+			Person P;
+			EnterPerson(P);
+			Mans = DeletePerson(Mans, n, P);
+			break;
+		}
+		case 8:
+		{
+			ShowAll(Mans, n);
+			break;
+		}
+		case 9:
+		{
+			Mans = DeleteAll(Mans, n);
+			break;
+		}
+		default:
+		{
+			system("cls");
+			puts("\nnevernyi vvod!");
+			break;
+		}
+		}
+		puts("Press any key...");
+		_getch();
+	}
+	system("cls");
+	puts("\n\nThe end!!!\n");
+	_getch();
+	return 0;
+}
+
+
+
+
