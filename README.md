@@ -54,7 +54,6 @@ Person *DeleteAll(Person *M, int &k);
 Person *DeleteAll(Person *M, int &k);
 Person *DeletePerson(Person *M, int &k, Person &Obj);
 
-//------------------------------------------------------------------------------
 void ZapisTxt(Person* M, int k)
 {
 	if (k == 0)
@@ -81,8 +80,7 @@ void ZapisTxt(Person* M, int k)
 	puts("FileTxt - zapisan");
 	fclose(f);
 }
-//---------------------------------------
-//слоник ну или сама ошибка
+
 void func()
 {
 	Sleep(500);
@@ -175,8 +173,7 @@ void func()
 	printf("¦ooooooooo___oooooooooooooooooooooooooo_oo_ooooooooooooooooooooooooooooooooo_ooo\n");
 	_getch();
 }
-//-----------------------------------------
-//ввод данных персоны
+
 void EnterPerson(Person & Obj)
 {
 	puts("Enter familiy: ");
@@ -194,7 +191,7 @@ void EnterPerson(Person & Obj)
 	puts("Enter age: ");
 	scanf_s("%d", &Obj.Age);
 }
-//----------------------------------------------
+
 Person *AddToEnd(Person *M, int &k, Person &Obj)
 {
 	system("cls");
@@ -223,8 +220,7 @@ Person *AddToEnd(Person *M, int &k, Person &Obj)
 		_getch();
 	}
 }
-//-----------------------------------------
-//показ всех записей
+
 void ShowAll(Person *M, int k)
 {
 	system("cls");
@@ -242,7 +238,7 @@ void PrintPerson(Person &Obj)
 {
 	printf("%-20s%-20s%-20d%-20s\n", Obj.LastName, Obj.FirstName, Obj.Age, Obj.phone);
 }
-//сортировка по алф порядку
+
 Person *SortByAlphabet(Person *M, int k)
 {
 	int q;
@@ -269,8 +265,7 @@ Person *SortByAlphabet(Person *M, int k)
 
 	return M;
 }
-//-------------------------------------------------------------------
-//сортировка по возрасту
+
 Person *SortByAge(Person *M, int k)
 {
 	int q;
@@ -301,7 +296,7 @@ void CopyPerson(Person& a, Person& b)
 	a = b;
 	b = buf;
 }
-//Поиск по имени человека
+
 void SearchPersonByFirstname(Person *M, int k, char *FN)
 {
 	system("cls");
@@ -329,8 +324,7 @@ void SearchPersonByFirstname(Person *M, int k, char *FN)
 	else
 		puts("\nMassiv pustoy!!!");
 }
-//-----------------------
-//по фамилии
+
 void SearchPersonByLastname(Person *M, int k, char *LN)
 {
 	system("cls");
@@ -358,8 +352,7 @@ void SearchPersonByLastname(Person *M, int k, char *LN)
 	else
 		puts("\nMassiv pustoy!!!");
 }
-//-----------------------------
-//поиск по возрасту
+
 void SearchPersonByAge(Person *M, int k, int A)
 {
 	system("cls");
@@ -388,8 +381,7 @@ void SearchPersonByAge(Person *M, int k, int A)
 	else
 		puts("\nMassiv pustoy!!!");
 }
-//---------------------------------
-//удаление перосны
+
 Person *DeletePerson(Person *M, int &k, Person &Obj)
 {
 	system("cls");
@@ -412,8 +404,7 @@ Person *DeletePerson(Person *M, int &k, Person &Obj)
 		puts("\nMassiv pustoy!!!");
 	return M;
 }
-//--------------------------------
-//удаление всех записей
+
 Person *DeleteAll(Person *M, int &k)
 {
 	system("cls");
@@ -428,8 +419,7 @@ Person *DeleteAll(Person *M, int &k)
 		puts("\nZapis' net!!!");
 	return M;
 }
-//------------------------------------
-//первое меню
+
 int menu(void)
 {
 	int z;
@@ -468,8 +458,7 @@ int menu(void)
 	} while (!flag);
 	return z;
 }
-//----------------------------
-//меню сортировки по возрасту или алфавиту
+
 int menu1()
 {
 	int z;
